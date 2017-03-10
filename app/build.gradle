@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        applicationId "com.samkeet.revamp17"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.wdullaer:materialdatetimepicker:2.5.0'
+//    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+
+    compile('com.mikepenz:materialdrawer:5.0.0@aar') {
+        transitive = true
+    }
+
+    compile('com.mikepenz:crossfadedrawerlayout:0.3.0@aar') {
+        transitive = true
+    }
+    // used to generate the Open Source sections
+    // https://github.com/mikepenz/AboutLibraries
+    compile('com.mikepenz:aboutlibraries:5.5.0@aar') {
+        transitive = true
+        exclude module: "fastadapter"
+    }
+    // icon fonts used inside the sample
+    // https://github.com/mikepenz/Android-Iconics
+    compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
+    compile 'com.wdullaer:materialdatetimepicker:2.5.0'
+    compile 'com.ms-square:expandableTextView:0.1.4'
+    compile 'com.github.d-max:spots-dialog:0.7@aar'
+    compile 'com.google.firebase:firebase-messaging:9.6.0'
+    compile 'com.google.firebase:firebase-crash:9.6.0'
+    compile 'com.droidninja:filepicker:1.0.0'
+    compile 'com.satsuware.lib:usefulviews:2.3.6'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+}
