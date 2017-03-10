@@ -1,6 +1,7 @@
 package com.samkeet.revamp17;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+
+import com.samkeet.revamp17.coordinator.CoordinatorMainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (valid()) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), CoordinatorMainActivity.class);
                     startActivity(intent);
                 }
             }

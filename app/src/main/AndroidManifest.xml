@@ -25,7 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".coordinator.CoordinatorMainActivity" />
+        <activity android:name=".admin.AdminMainActivity" />
+        <activity android:name=".guest.GuestMainActivity"></activity>
     </application>
 
 </manifest>
