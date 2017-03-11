@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (valid()) {
+                if (/*valid()*/true) {
                     Intent intent = new Intent(getApplicationContext(), CoordinatorMainActivity.class);
                     startActivity(intent);
                 }
@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean valid() {
+
         mobileno = mMobileno.getText().toString().trim();
         password = mPassword.getText().toString().trim();
 

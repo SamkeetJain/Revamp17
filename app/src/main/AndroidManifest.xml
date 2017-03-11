@@ -27,7 +27,11 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".coordinator.CoordinatorMainActivity" />
         <activity android:name=".admin.AdminMainActivity" />
-        <activity android:name=".guest.GuestMainActivity"></activity>
+        <activity android:name=".guest.GuestMainActivity" />
+        <activity android:name=".coordinator.CoPaymentActivity" />
+        <activity android:name=".coordinator.CoEventsActivity" />
+        <activity android:name=".coordinator.CoRegistrationActivity" />
+        <activity android:name=".events.EventsMainActivity"></activity>
     </application>
 
 </manifest>
