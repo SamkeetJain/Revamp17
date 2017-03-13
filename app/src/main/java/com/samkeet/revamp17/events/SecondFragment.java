@@ -17,6 +17,8 @@ import com.samkeet.revamp17.Constants;
 import com.samkeet.revamp17.R;
 import com.samkeet.revamp17.myboom.AllMoveDownAnimatorAdapter;
 import com.samkeet.revamp17.myboom.CardStackView;
+import com.samkeet.revamp17.myboom.UpDownAnimatorAdapter;
+import com.samkeet.revamp17.myboom.UpDownStackAnimatorAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,10 +79,10 @@ public class SecondFragment extends Fragment {
                 TEST_DATAS[i] = R.color.colorWhite;
             }
 
-            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.technicalEvents);
+            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.technicalEvents,getActivity());
             mStackView.setAdapter(mEventsAdapter);
             mEventsAdapter.updateData(Arrays.asList(TEST_DATAS));
-            mStackView.setAnimatorAdapter(new AllMoveDownAnimatorAdapter(mStackView));
+            mStackView.setAnimatorAdapter(new UpDownAnimatorAdapter(mStackView));
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error in loading data", Toast.LENGTH_SHORT).show();
         }

@@ -19,6 +19,9 @@ public class Constants {
     public static class URLs {
         public static String BASE = "http://smartreva.16mb.com/Revamp17/";
         public static String GET_EVENTS = "getevents.php";
+        public static String REGISTRATION = "registrations.php";
+        public static String PAYMENT_REG = "payment_reg.php";
+        public static String PAYMENT_TRANSFER = "payment_transfer.php";
         public static String AUTHORIZATION = "authorization.php";
     }
 

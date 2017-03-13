@@ -1,6 +1,7 @@
 package com.samkeet.revamp17.coordinator;
 
 import android.content.Intent;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +10,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.samkeet.revamp17.Constants;
+import com.samkeet.revamp17.LoginActivity;
 import com.samkeet.revamp17.R;
 import com.samkeet.revamp17.events.EventsMainActivity;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 import com.yalantis.guillotine.interfaces.GuillotineListener;
 
-public class CoordinatorMainActivity extends AppCompatActivity {
+public class CoMainActivity extends AppCompatActivity {
 
     private static final long RIPPLE_DURATION = 250;
     private boolean isOpen = false;
@@ -64,6 +67,19 @@ public class CoordinatorMainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CoRegistrationActivity.class);
                 startActivity(intent);
                 mGuillotineAnimation.close();
+            }
+        });
+
+        LinearLayout mLogout = (LinearLayout) findViewById(R.id.logout_group);
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.SharedPreferenceData.clearData();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                mGuillotineAnimation.close();
+                finish();
             }
         });
 

@@ -20,6 +20,7 @@ import com.samkeet.revamp17.R;
 import com.samkeet.revamp17.myboom.AllMoveDownAnimatorAdapter;
 import com.samkeet.revamp17.myboom.CardStackView;
 import com.samkeet.revamp17.myboom.UpDownAnimatorAdapter;
+import com.samkeet.revamp17.myboom.UpDownStackAnimatorAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,7 +85,7 @@ public class FirstFragment extends Fragment {
                 TEST_DATAS[i] = R.color.colorWhite;
             }
 
-            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.culturalEvents);
+            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.culturalEvents,getActivity());
             mStackView.setAdapter(mEventsAdapter);
             mEventsAdapter.updateData(Arrays.asList(TEST_DATAS));
             mStackView.setAnimatorAdapter(new UpDownAnimatorAdapter(mStackView));

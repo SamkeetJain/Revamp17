@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,18 +16,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.samkeet.revamp17.admin.AdminMainActivity;
-import com.samkeet.revamp17.coordinator.CoordinatorMainActivity;
+import com.samkeet.revamp17.coordinator.CoMainActivity;
 import com.samkeet.revamp17.guest.GuestMainActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import dmax.dialog.SpotsDialog;
 
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else if (type.equals("COORDINATOR")) {
-            Intent intent = new Intent(getApplicationContext(), CoordinatorMainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CoMainActivity.class);
             startActivity(intent);
             finish();
         } else if (type.equals("ADMIN")) {
@@ -194,7 +194,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 return 1;
-
+            } catch (FileNotFoundException | ConnectException | UnknownHostException ex) {
+                authenticationError = true;
+                errorMessage = "Connection to server terminated.\n Please check internet connection.";
+                ex.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -77,7 +77,7 @@ public class FourthFragment extends Fragment {
                 TEST_DATAS[i] = R.color.colorWhite;
             }
 
-            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.sportsEvents);
+            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.sportsEvents,getActivity());
             mStackView.setAdapter(mEventsAdapter);
             mEventsAdapter.updateData(Arrays.asList(TEST_DATAS));
             mStackView.setAnimatorAdapter(new AllMoveDownAnimatorAdapter(mStackView));

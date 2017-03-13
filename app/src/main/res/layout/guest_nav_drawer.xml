@@ -48,51 +48,7 @@
             android:text="EVENTS"
             android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/payments_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        android:paddingLeft="48dp">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_camera" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="25dp"
-            android:text="PAYMENTS"
-            android:textColor="@color/colorPrimaryDark" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/registration_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        android:paddingLeft="48dp">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_camera" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="25dp"
-            android:text="REGISTRATION"
-            android:textColor="@color/colorPrimaryDark" />
-    </LinearLayout>
-
+    
     <LinearLayout
         android:id="@+id/logout_group"
         android:layout_width="match_parent"
