@@ -6,11 +6,16 @@ import android.graphics.PorterDuff;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.samkeet.revamp17.R;
 import com.samkeet.revamp17.myboom.CardStackView;
 import com.samkeet.revamp17.myboom.StackAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by Frost on 11-03-2017.
@@ -18,8 +23,13 @@ import com.samkeet.revamp17.myboom.StackAdapter;
 
 public class EventsAdapter extends StackAdapter<Integer> {
 
-    public EventsAdapter(Context context) {
+    private Context context;
+    private JSONArray events;
+
+    public EventsAdapter(Context context, JSONArray events) {
         super(context);
+        this.context = context;
+        this.events = events;
     }
 
     @Override
@@ -31,7 +41,7 @@ public class EventsAdapter extends StackAdapter<Integer> {
     @Override
     protected CardStackView.ViewHolder onCreateView(ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.list_card_item, parent, false);
-        return new ColorItemViewHolder(view);
+        return new ColorItemViewHolder(view, events);
     }
 
     @Override
@@ -40,15 +50,23 @@ public class EventsAdapter extends StackAdapter<Integer> {
     }
 
     public static class ColorItemViewHolder extends CardStackView.ViewHolder {
+        JSONArray events;
         View mLayout;
         View mContainerContent;
-        TextView mTextTitle;
+        Button mRegBtn;
+        TextView mEvent_name, mEvent_Prize1, mEvent_Prize2, mEvent_Reg_Fee, mEvent_Rules;
 
-        public ColorItemViewHolder(View view) {
+        public ColorItemViewHolder(View view, JSONArray events) {
             super(view);
+            this.events = events;
             mLayout = view.findViewById(R.id.frame_list_card_item);
             mContainerContent = view.findViewById(R.id.container_list_content);
-            mTextTitle = (TextView) view.findViewById(R.id.text_list_card_title);
+            mRegBtn = (Button) view.findViewById(R.id.reg_btn);
+            mEvent_name = (TextView) view.findViewById(R.id.event_name);
+            mEvent_Prize1 = (TextView) view.findViewById(R.id.event_prize1);
+            mEvent_Prize2 = (TextView) view.findViewById(R.id.event_prize2);
+            mEvent_Reg_Fee = (TextView) view.findViewById(R.id.event_reg_fee);
+            mEvent_Rules = (TextView) view.findViewById(R.id.event_rule);
         }
 
         @Override
@@ -56,9 +74,29 @@ public class EventsAdapter extends StackAdapter<Integer> {
             mContainerContent.setVisibility(b ? View.VISIBLE : View.GONE);
         }
 
-        public void onBind(Integer data, int position) {
+        public void onBind(Integer data, final int position) {
             mLayout.getBackground().setColorFilter(ContextCompat.getColor(getContext(), data), PorterDuff.Mode.SRC_IN);
-            mTextTitle.setText(String.valueOf(position));
+            try {
+                String name, prize1, prize2, reg_fee, rule;
+                name = events.getJSONObject(position).getString("Event_Name");
+                prize1 = "\u20B9" + " " + events.getJSONObject(position).getString("Event_Prize1");
+                prize2 = "\u20B9" + " " + events.getJSONObject(position).getString("Event_Prize2");
+                reg_fee = "Reg Fee   " + "\u20B9" + " " + events.getJSONObject(position).getString("Event_Reg_Fee");
+                rule = events.getJSONObject(position).getString("Event_Rules");
+                mEvent_name.setText(name);
+                mEvent_Prize1.setText(prize1);
+                mEvent_Prize2.setText(prize2);
+                mEvent_Reg_Fee.setText(reg_fee);
+                mEvent_Rules.setText(rule);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mRegBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getContext().getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
     }
