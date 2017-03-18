@@ -8,13 +8,16 @@ import android.widget.TextView;
 
 import com.samkeet.revamp17.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /**
  * Created by Frost on 14-03-2017.
  */
 
 public class CoRegStatusAdapter extends RecyclerView.Adapter<CoRegStatusAdapter.ViewHolder> {
 
-    private String[] mPhone, mAmount, mDates, mNames;
+    private JSONArray jsonArray;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -29,11 +32,8 @@ public class CoRegStatusAdapter extends RecyclerView.Adapter<CoRegStatusAdapter.
         }
     }
 
-    public CoRegStatusAdapter(String[] mPhone, String[] mAmount, String[] mDates, String[] mNames) {
-        this.mPhone = mPhone;
-        this.mAmount = mAmount;
-        this.mDates = mDates;
-        this.mNames = mNames;
+    public CoRegStatusAdapter(JSONArray jsonArray) {
+        this.jsonArray = jsonArray;
     }
 
     @Override
@@ -45,15 +45,19 @@ public class CoRegStatusAdapter extends RecyclerView.Adapter<CoRegStatusAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mPhoneView.setText(mPhone[position]);
-        holder.mAmountView.setText(mAmount[position]);
-        holder.mDateView.setText(mDates[position]);
-        holder.mNameView.setText(mNames[position]);
+        try {
+            holder.mPhoneView.setText(jsonArray.getJSONObject(position).getString("Registration_Event_Name"));
+            holder.mAmountView.setText(jsonArray.getJSONObject(position).getString("Registration_Fee"));
+            holder.mDateView.setText(jsonArray.getJSONObject(position).getString("Registration_Time"));
+            holder.mNameView.setText(jsonArray.getJSONObject(position).getString("Registration_User_Name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mPhone.length;
+        return jsonArray.length();
     }
 }
 

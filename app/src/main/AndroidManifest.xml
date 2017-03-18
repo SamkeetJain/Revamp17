@@ -39,7 +39,8 @@
         <activity android:name=".coordinator.CoRegStatusActivity" />
         <activity android:name=".coordinator.CoRegListActivity" />
         <activity android:name=".OTPActivity" />
-        <activity android:name=".BackstageLoginActivity"></activity>
+        <activity android:name=".BackstageLoginActivity" />
+        <activity android:name=".coordinator.CoCollectPaymentActivity"></activity>
     </application>
 
 </manifest>

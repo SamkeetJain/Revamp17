@@ -59,7 +59,8 @@ public class CoPaymentActivity extends AppCompatActivity {
         mCollectPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(),CoCollectPaymentActivity.class);
+                startActivity(intent);
             }
         });
 
