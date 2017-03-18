@@ -82,10 +82,10 @@ public class FirstFragment extends Fragment {
             int count = Constants.Events.culturalEvents.length();
             TEST_DATAS = new Integer[count];
             for (int i = 0; i < count; i++) {
-                TEST_DATAS[i] = R.color.colorWhite;
+                TEST_DATAS[i] = R.color.colorLightGreen;
             }
 
-            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.culturalEvents,getActivity());
+            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.culturalEvents, getActivity());
             mStackView.setAdapter(mEventsAdapter);
             mEventsAdapter.updateData(Arrays.asList(TEST_DATAS));
             mStackView.setAnimatorAdapter(new UpDownAnimatorAdapter(mStackView));

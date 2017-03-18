@@ -17,12 +17,14 @@ import java.util.regex.Pattern;
 public class Constants {
 
     public static class URLs {
-        public static String BASE = "http://smartreva.16mb.com/Revamp17/";
+        public static String BASE = "http://revamp.e-lemon-ators.club/v1/";
         public static String GET_EVENTS = "getevents.php";
         public static String REGISTRATION = "registrations.php";
         public static String PAYMENT_REG = "payment_reg.php";
         public static String PAYMENT_TRANSFER = "payment_transfer.php";
         public static String AUTHORIZATION = "authorization.php";
+        public static String BACKSTAGE = "backstage.php";
+        public static String SIGNUP = "signup.php";
     }
 
     public static class SharedPreferenceData {

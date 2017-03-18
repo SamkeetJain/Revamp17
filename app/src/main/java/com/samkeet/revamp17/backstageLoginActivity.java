@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.samkeet.revamp17.admin.AdminMainActivity;
 import com.samkeet.revamp17.coordinator.CoMainActivity;
-import com.samkeet.revamp17.guest.GuestMainActivity;
 
 import org.json.JSONObject;
 
@@ -32,7 +31,7 @@ import java.net.UnknownHostException;
 
 import dmax.dialog.SpotsDialog;
 
-public class LoginActivity extends AppCompatActivity {
+public class BackstageLoginActivity extends AppCompatActivity {
 
     public AppCompatButton mLoginButton, mSignupButton, backstage;
     public TextInputLayout tMobileno, tPassword;
@@ -49,14 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        Constants.SharedPreferenceData.initSharedPreferenceData(getSharedPreferences(Constants.SharedPreferenceData.SHAREDPREFERENCES, MODE_PRIVATE));
-
-        if (Constants.SharedPreferenceData.getIsLoggedIn().equals("yes")) {
-            type = Constants.SharedPreferenceData.getTYPE();
-            forward();
-        }
+        setContentView(R.layout.activity_backstage_login);
 
         progressDialogContext = this;
 
@@ -78,25 +70,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        mSignupButton = (AppCompatButton) findViewById(R.id.link_signup);
-        mSignupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        backstage = (AppCompatButton) findViewById(R.id.link_voulenterr);
-        backstage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BackstageLoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
     }
 
@@ -131,12 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void forward() {
-
-        if (type.equals("GUEST")) {
-            Intent intent = new Intent(getApplicationContext(), GuestMainActivity.class);
-            startActivity(intent);
-            finish();
-        } else if (type.equals("COORDINATOR")) {
+        if (type.equals("COORDINATOR")) {
             Intent intent = new Intent(getApplicationContext(), CoMainActivity.class);
             startActivity(intent);
             finish();
@@ -162,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Integer doInBackground(Void... params) {
             try {
 
-                URL url = new URL(Constants.URLs.BASE + Constants.URLs.AUTHORIZATION);
+                URL url = new URL(Constants.URLs.BASE + Constants.URLs.BACKSTAGE);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
@@ -206,11 +174,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 return 1;
-            } /*catch (FileNotFoundException | ConnectException | UnknownHostException ex) {
+            } catch (FileNotFoundException | ConnectException | UnknownHostException ex) {
                 authenticationError = true;
                 errorMessage = "Connection to server terminated.\n Please check internet connection.";
                 ex.printStackTrace();
-            } */ catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

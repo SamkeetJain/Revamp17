@@ -38,6 +38,7 @@ public class CoCPassbookActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     private SpotsDialog pd;
     private Context progressDialogContext;
     private boolean authenticationError = true;

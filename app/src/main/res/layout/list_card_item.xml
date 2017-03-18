@@ -46,7 +46,7 @@
                         android:maxLines="2"
                         android:paddingEnd="5dp"
                         android:text="Micro controler programming"
-                        android:textColor="#7C4DFF"
+                        android:textColor="#FFFFFF"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -87,7 +87,7 @@
                                 android:maxLines="1"
                                 android:paddingLeft="5dp"
                                 android:text="  \u20B9 10000"
-                                android:textColor="#7C4DFF"
+                                android:textColor="#FFFFFF"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -110,7 +110,7 @@
                                 android:maxLines="1"
                                 android:paddingLeft="5dp"
                                 android:text="  \u20B9 5000"
-                                android:textColor="#7C4DFF"
+                                android:textColor="#FFFFFF"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -129,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Reg Fee \u20B9 100"
-                            android:textColor="#7C4DFF"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
                     </LinearLayout>
