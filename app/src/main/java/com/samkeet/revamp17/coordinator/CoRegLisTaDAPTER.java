@@ -8,32 +8,31 @@ import android.widget.TextView;
 
 import com.samkeet.revamp17.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /**
  * Created by Frost on 14-03-2017.
  */
 
 public class CoRegListAdapter extends RecyclerView.Adapter<CoRegListAdapter.ViewHolder> {
 
-    private String[] mPhone, mAmount, mDates, mNames;
-
+    private JSONArray jsonArray;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mPhoneView, mAmountView, mDateView, mNameView;
+        public TextView mPhoneView, mStatusView, mENameView, mNameView;
 
         public ViewHolder(View v) {
             super(v);
             mPhoneView = (TextView) v.findViewById(R.id.phoneno);
-            mAmountView = (TextView) v.findViewById(R.id.amount);
-            mDateView = (TextView) v.findViewById(R.id.datetext);
+            mStatusView = (TextView) v.findViewById(R.id.amount);
+            mENameView = (TextView) v.findViewById(R.id.datetext);
             mNameView = (TextView) v.findViewById(R.id.name);
         }
     }
 
-    public CoRegListAdapter(String[] mPhone, String[] mAmount, String[] mDates, String[] mNames) {
-        this.mPhone = mPhone;
-        this.mAmount = mAmount;
-        this.mDates = mDates;
-        this.mNames = mNames;
+    public CoRegListAdapter(JSONArray jsonArray) {
+        this.jsonArray = jsonArray;
     }
 
     @Override
@@ -45,14 +44,18 @@ public class CoRegListAdapter extends RecyclerView.Adapter<CoRegListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mPhoneView.setText(mPhone[position]);
-        holder.mAmountView.setText(mAmount[position]);
-        holder.mDateView.setText(mDates[position]);
-        holder.mNameView.setText(mNames[position]);
+        try {
+            holder.mPhoneView.setText(jsonArray.getJSONObject(position).getString("Registration_User_MobileNo"));
+            holder.mStatusView.setText(jsonArray.getJSONObject(position).getString("Registration_Status"));
+            holder.mENameView.setText(jsonArray.getJSONObject(position).getString("Registration_Event_Name"));
+            holder.mNameView.setText(jsonArray.getJSONObject(position).getString("Registration_User_Name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mPhone.length;
+        return jsonArray.length();
     }
 }

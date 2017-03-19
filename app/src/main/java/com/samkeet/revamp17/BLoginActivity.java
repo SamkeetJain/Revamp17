@@ -31,7 +31,7 @@ import java.net.UnknownHostException;
 
 import dmax.dialog.SpotsDialog;
 
-public class BackstageLoginActivity extends AppCompatActivity {
+public class BLoginActivity extends AppCompatActivity {
 
     public AppCompatButton mLoginButton, mSignupButton, backstage;
     public TextInputLayout tMobileno, tPassword;

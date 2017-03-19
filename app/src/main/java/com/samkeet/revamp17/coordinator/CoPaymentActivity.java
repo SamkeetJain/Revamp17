@@ -36,7 +36,7 @@ public class CoPaymentActivity extends AppCompatActivity {
     public boolean authenticationError = true;
     public String errorMessage = "Data Corrupted";
     public String account, reg;
-    public Button mCPassbook, mTPassbook, mCollectPayment;
+    public Button mCPassbook, mTPassbook, mCollectPayment,mTransferPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class CoPaymentActivity extends AppCompatActivity {
 
         myAccountTextView = (TextView) findViewById(R.id.myAccountTextView);
         myRegTextView = (TextView) findViewById(R.id.myRegTextView);
+
         mCPassbook = (Button) findViewById(R.id.cpassbook);
         mCPassbook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +61,15 @@ public class CoPaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),CoCollectPaymentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mTransferPayment = (Button) findViewById(R.id.transferbutton);
+        mTransferPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CoTransferActivity.class);
                 startActivity(intent);
             }
         });

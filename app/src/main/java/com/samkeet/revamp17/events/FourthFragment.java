@@ -73,11 +73,9 @@ public class FourthFragment extends Fragment {
         if (Constants.Events.isSportsAvalible) {
             int count = Constants.Events.sportsEvents.length();
             TEST_DATAS = new Integer[count];
-            for (int i = 0; i < count; i++) {
-                TEST_DATAS[i] = R.color.colorWhite;
-            }
+            TEST_DATAS = Constants.Methods.getColors(count);
 
-            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.sportsEvents,getActivity());
+            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.sportsEvents, getActivity(), false);
             mStackView.setAdapter(mEventsAdapter);
             mEventsAdapter.updateData(Arrays.asList(TEST_DATAS));
             mStackView.setAnimatorAdapter(new AllMoveDownAnimatorAdapter(mStackView));

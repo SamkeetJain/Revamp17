@@ -44,12 +44,14 @@ public class EventsAdapter extends StackAdapter<Integer> {
     private Context context;
     private JSONArray events;
     private Activity activity;
+    private boolean show;
 
-    public EventsAdapter(Context context, JSONArray events, Activity activity) {
+    public EventsAdapter(Context context, JSONArray events, Activity activity, boolean show) {
         super(context);
         this.context = context;
         this.events = events;
         this.activity = activity;
+        this.show = show;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class EventsAdapter extends StackAdapter<Integer> {
     @Override
     protected CardStackView.ViewHolder onCreateView(ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.list_card_item, parent, false);
-        return new ColorItemViewHolder(view, events, activity);
+        return new ColorItemViewHolder(view, events, activity, show);
     }
 
     @Override
@@ -81,7 +83,8 @@ public class EventsAdapter extends StackAdapter<Integer> {
         Button mRegBtn;
         TextView mEvent_name, mEvent_Prize1, mEvent_Prize2, mEvent_Reg_Fee, mEvent_Rules;
 
-        public ColorItemViewHolder(View view, JSONArray events, Activity activity) {
+
+        public ColorItemViewHolder(View view, JSONArray events, Activity activity, boolean show) {
             super(view);
             this.events = events;
             progressDialogContext = activity;
@@ -94,7 +97,7 @@ public class EventsAdapter extends StackAdapter<Integer> {
             mEvent_Reg_Fee = (TextView) view.findViewById(R.id.event_reg_fee);
             mEvent_Rules = (TextView) view.findViewById(R.id.event_rule);
 
-            checkeligibity();
+            checkeligibity(show);
         }
 
         @Override
@@ -161,11 +164,15 @@ public class EventsAdapter extends StackAdapter<Integer> {
             });
         }
 
-        private void checkeligibity() {
-            if (Constants.SharedPreferenceData.getTYPE().equals("GUEST")) {
-                mRegBtn.setVisibility(View.VISIBLE);
-            } else {
+        private void checkeligibity(boolean show) {
+            if (!show) {
                 mRegBtn.setVisibility(View.GONE);
+            } else {
+                if (Constants.SharedPreferenceData.getTYPE().equals("GUEST")) {
+                    mRegBtn.setVisibility(View.VISIBLE);
+                } else {
+                    mRegBtn.setVisibility(View.GONE);
+                }
             }
         }
 

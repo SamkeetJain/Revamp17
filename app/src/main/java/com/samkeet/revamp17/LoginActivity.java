@@ -22,13 +22,10 @@ import com.samkeet.revamp17.guest.GuestMainActivity;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.UnknownHostException;
 
 import dmax.dialog.SpotsDialog;
 
@@ -92,11 +89,11 @@ public class LoginActivity extends AppCompatActivity {
         backstage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BackstageLoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BLoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-
 
     }
 

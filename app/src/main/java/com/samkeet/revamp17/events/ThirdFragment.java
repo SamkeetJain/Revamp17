@@ -75,11 +75,10 @@ public class ThirdFragment extends Fragment {
         if (Constants.Events.isManagementAvalible) {
             int count = Constants.Events.managementEvents.length();
             TEST_DATAS = new Integer[count];
-            for (int i = 0; i < count; i++) {
-                TEST_DATAS[i] = R.color.colorWhite;
-            }
+            TEST_DATAS = Constants.Methods.getColors(count);
 
-            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.managementEvents, getActivity());
+
+            mEventsAdapter = new EventsAdapter(getActivity().getApplicationContext(), Constants.Events.managementEvents, getActivity(),true);
             mStackView.setAdapter(mEventsAdapter);
             mEventsAdapter.updateData(Arrays.asList(TEST_DATAS));
             mStackView.setAnimatorAdapter(new UpDownAnimatorAdapter(mStackView));
