@@ -2,10 +2,8 @@ package com.samkeet.revamp17.coordinator;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -316,7 +313,7 @@ public class CoRegListActivity extends AppCompatActivity {
             if (authenticationError) {
                 Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
             } else {
-                mAdapter = new CoRegListAdapter(list);
+                mAdapter = new CoRegListAdapters(list);
                 mRecyclerView.setAdapter(mAdapter);
             }
         }

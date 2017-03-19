@@ -15,7 +15,7 @@ import org.json.JSONException;
  * Created by Frost on 14-03-2017.
  */
 
-public class CoRegListAdapter extends RecyclerView.Adapter<CoRegListAdapter.ViewHolder> {
+public class CoRegListAdapters extends RecyclerView.Adapter<CoRegListAdapters.ViewHolder> {
 
     private JSONArray jsonArray;
 
@@ -31,12 +31,12 @@ public class CoRegListAdapter extends RecyclerView.Adapter<CoRegListAdapter.View
         }
     }
 
-    public CoRegListAdapter(JSONArray jsonArray) {
+    public CoRegListAdapters(JSONArray jsonArray) {
         this.jsonArray = jsonArray;
     }
 
     @Override
-    public CoRegListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CoRegListAdapters.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cards_passbook, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
