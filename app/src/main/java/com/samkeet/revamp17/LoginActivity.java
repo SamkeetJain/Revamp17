@@ -1,37 +1,46 @@
 package com.samkeet.revamp17;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.samkeet.revamp17.admin.AdminMainActivity;
 import com.samkeet.revamp17.coordinator.CoMainActivity;
 import com.samkeet.revamp17.guest.GuestMainActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public AppCompatButton mLoginButton, mSignupButton, backstage;
+    public AppCompatButton mLoginButton, mSignupButton, backstage, dev;
     public TextInputLayout tMobileno, tPassword;
     public String mobileno, password;
     public EditText mMobileno, mPassword;
@@ -40,13 +49,33 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean authenticationError = true;
     public String errorMessage = "Data Corrupted";
-
+    public boolean vc = true;
     public String token, type;
+    public VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        videoView = (VideoView) findViewById(R.id.videoView);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+        params.width = metrics.widthPixels;
+        params.height = metrics.heightPixels;
+        params.leftMargin = 0;
+        videoView.setLayoutParams(params);
+        String UrlPath = "android.resource://" + getPackageName() + "/" + R.raw.revafinal;
+        videoView.setVideoURI(Uri.parse(UrlPath));
+        videoView.start();
+
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                videoView.start();
+            }
+        });
 
         Constants.SharedPreferenceData.initSharedPreferenceData(getSharedPreferences(Constants.SharedPreferenceData.SHAREDPREFERENCES, MODE_PRIVATE));
 
@@ -95,6 +124,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        dev = (AppCompatButton) findViewById(R.id.dev);
+        dev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DevelopersActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!videoView.isPlaying()) {
+            videoView.start();
+        }
     }
 
     public boolean valid() {
@@ -164,7 +209,6 @@ public class LoginActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                Log.d("POST", "DATA ready to sent");
 
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("Mobile", mobileno)
                         .appendQueryParameter("Password", password);
@@ -172,7 +216,6 @@ public class LoginActivity extends AppCompatActivity {
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
                 writer.close();
-                Log.d("POST", "DATA SENT");
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
@@ -183,7 +226,6 @@ public class LoginActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-                Log.d("return from server", jsonResults.toString());
 
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 
@@ -203,11 +245,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 return 1;
-            } /*catch (FileNotFoundException | ConnectException | UnknownHostException ex) {
+            } catch (FileNotFoundException | ConnectException | UnknownHostException ex) {
                 authenticationError = true;
-                errorMessage = "Connection to server terminated.\n Please check internet connection.";
+                errorMessage = "Please check internet connection.\nConnection to server terminated.";
                 ex.printStackTrace();
-            } */ catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

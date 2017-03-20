@@ -2,6 +2,7 @@ package com.samkeet.revamp17.coordinator;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -67,8 +68,10 @@ public class CoRegListActivity extends AppCompatActivity {
         mSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetDetails getDetails = new GetDetails();
-                getDetails.execute();
+                if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
+                    GetDetails getDetails = new GetDetails();
+                    getDetails.execute();
+                }
             }
         });
 
@@ -81,8 +84,10 @@ public class CoRegListActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 stype = eventtype[position];
-                GetNames getNames = new GetNames();
-                getNames.execute();
+                if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
+                    GetNames getNames = new GetNames();
+                    getNames.execute();
+                }
             }
 
             @Override
@@ -194,7 +199,6 @@ public class CoRegListActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                Log.d("POST", "DATA ready to sent");
 
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("token", Constants.SharedPreferenceData.getTOKEN())
                         .appendQueryParameter("requestType", "Event_List")
@@ -203,7 +207,6 @@ public class CoRegListActivity extends AppCompatActivity {
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
                 writer.close();
-                Log.d("POST", "DATA SENT");
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
@@ -214,7 +217,6 @@ public class CoRegListActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-                Log.d("return from server", jsonResults.toString());
 
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 
@@ -267,7 +269,6 @@ public class CoRegListActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                Log.d("POST", "DATA ready to sent");
 
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("token", Constants.SharedPreferenceData.getTOKEN())
                         .appendQueryParameter("requestType", "Event_Name")
@@ -276,7 +277,6 @@ public class CoRegListActivity extends AppCompatActivity {
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
                 writer.close();
-                Log.d("POST", "DATA SENT");
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
@@ -287,7 +287,6 @@ public class CoRegListActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-                Log.d("return from server", jsonResults.toString());
 
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 

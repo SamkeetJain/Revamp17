@@ -11,7 +11,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/revamp"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,7 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupActivity" />
+        <activity
+            android:name=".SignupActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".coordinator.CoMainActivity" />
         <activity android:name=".admin.AdminMainActivity" />
         <activity android:name=".guest.GuestMainActivity" />
@@ -41,7 +43,12 @@
         <activity android:name=".OTPActivity" />
         <activity android:name=".BLoginActivity" />
         <activity android:name=".coordinator.CoCollectPaymentActivity" />
-        <activity android:name=".coordinator.CoTransferActivity"></activity>
+        <activity android:name=".coordinator.CoTransferActivity" />
+        <activity android:name=".ScheduleActivity" />
+        <activity android:name=".PaymentInfoActivity" />
+        <activity android:name=".DevelopersActivity" />
+        <activity android:name=".guest.GuestMyEventsActivity" />
+        <activity android:name=".Schedule2Activity"></activity>
     </application>
 
 </manifest>

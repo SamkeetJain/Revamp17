@@ -1,7 +1,12 @@
 package com.samkeet.revamp17.coordinator;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.content.IntentCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,11 +16,22 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.samkeet.revamp17.Constants;
+import com.samkeet.revamp17.DevelopersActivity;
 import com.samkeet.revamp17.LoginActivity;
+import com.samkeet.revamp17.PaymentInfoActivity;
 import com.samkeet.revamp17.R;
+import com.samkeet.revamp17.ScheduleActivity;
 import com.samkeet.revamp17.events.EventsMainActivity;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 import com.yalantis.guillotine.interfaces.GuillotineListener;
+
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class CoMainActivity extends AppCompatActivity {
 
@@ -27,6 +43,12 @@ public class CoMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinator_main);
+
+        if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
+
+            Version version = new Version();
+            version.execute();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FrameLayout root = (FrameLayout) findViewById(R.id.root);
@@ -83,6 +105,60 @@ public class CoMainActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout mSchedule = (LinearLayout) findViewById(R.id.sch_group);
+        mSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ScheduleActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        LinearLayout mReachUs = (LinearLayout) findViewById(R.id.reach_group);
+        mReachUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double latitude = 13.1158112;
+                double longitude = 77.6342008;
+                String label = "Reva University";
+
+                String uriBegin = "geo:" + latitude + "," + longitude;
+                String query = latitude + "," + longitude + "(" + label + ")";
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=17";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+            }
+        });
+        final LinearLayout mWebsite = (LinearLayout) findViewById(R.id.website_group);
+        mWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sWebsite = "http://www.revampthefest.com";
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
+                websiteIntent.setData(Uri.parse(sWebsite));
+                startActivity(websiteIntent);
+            }
+        });
+        LinearLayout mPaymentInfo = (LinearLayout) findViewById(R.id.pay_group);
+        mPaymentInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        LinearLayout mDevelopers = (LinearLayout) findViewById(R.id.dev_group);
+        mDevelopers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DevelopersActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mGuillotineAnimation = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, guillotineMenu.findViewById(R.id.guillotine_hamburger), contentHamburger)
                 .setStartDelay(RIPPLE_DURATION)
                 .setActionBarViewForAnimation(toolbar)
@@ -102,6 +178,13 @@ public class CoMainActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Version version = new Version();
+        version.execute();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -109,6 +192,83 @@ public class CoMainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
         mGuillotineAnimation.close();
+    }
+
+    private class Version extends AsyncTask<Void, Void, Integer> {
+        boolean auth = false;
+
+        protected void onPreExecute() {
+
+        }
+
+        protected Integer doInBackground(Void... params) {
+            try {
+
+                URL url = new URL(Constants.URLs.BASE + Constants.URLs.VERSION);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+
+                Uri.Builder _data = new Uri.Builder().appendQueryParameter("s", "s");
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+                writer.write(_data.build().getEncodedQuery());
+                writer.flush();
+                writer.close();
+
+                InputStreamReader in = new InputStreamReader(connection.getInputStream());
+                StringBuilder jsonResults = new StringBuilder();
+                // Load the results into a StringBuilder
+                int read;
+                char[] buff = new char[1024];
+                while ((read = in.read(buff)) != -1) {
+                    jsonResults.append(buff, 0, read);
+                }
+                connection.disconnect();
+                JSONObject jsonObject = new JSONObject(jsonResults.toString());
+                String temp = jsonObject.getString("version");
+                if (temp.equals("NA")) {
+                    auth = false;
+                } else {
+                    if (temp.equals(Constants.VERSION_CODE)) {
+                        auth = false;
+                    } else {
+                        auth = true;
+                    }
+                }
+                return 1;
+            } catch (Exception e) {
+                e.printStackTrace();
+                auth = false;
+            }
+
+            return 1;
+        }
+
+        protected void onPostExecute(Integer result) {
+            if (auth) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CoMainActivity.this);
+
+                builder.setTitle("New version is available");
+                builder.setMessage("Your using an outdated app, Please update your app to get latest and accurate information");
+
+                String positiveText = "Update";
+                builder.setPositiveButton(positiveText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        final String appPackageName = "com.samkeet.revamp17"; // getPackageName() from Context or Activity object
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
+                    }
+                });
+                builder.setCancelable(false);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }
     }
 
 

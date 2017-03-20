@@ -27,7 +27,7 @@
                 android:layout_height="72dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
-                android:src="@drawable/ic_camera" />
+                android:src="@drawable/revamptext" />
 
             <!-- Email Label -->
             <android.support.design.widget.TextInputLayout

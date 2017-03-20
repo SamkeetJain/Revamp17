@@ -2,6 +2,7 @@ package com.samkeet.revamp17.coordinator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -82,10 +83,10 @@ public class CoPaymentActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        GetDetails getDetails = new GetDetails();
-        getDetails.execute();
-
+        if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
+            GetDetails getDetails = new GetDetails();
+            getDetails.execute();
+        }
     }
 
     public void BackButton(View v) {
@@ -110,7 +111,6 @@ public class CoPaymentActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                Log.d("POST", "DATA ready to sent");
 
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("token", Constants.SharedPreferenceData.getTOKEN())
                         .appendQueryParameter("requestType", "getdetails");
@@ -118,7 +118,6 @@ public class CoPaymentActivity extends AppCompatActivity {
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
                 writer.close();
-                Log.d("POST", "DATA SENT");
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
@@ -129,7 +128,6 @@ public class CoPaymentActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-                Log.d("return from server", jsonResults.toString());
 
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 

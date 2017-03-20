@@ -7,11 +7,13 @@
     <color name="colorAccent">#8BC34A</color>
     <color name="colorLightGreen">#aed581</color>
     <color name="colorPrimary">#8BC34A</color>
-    <color name="colorAccentTrans">#408bc34a</color>
+    <color name="colorAccentTrans">#E0ffffff</color>
 
     <color name="guillotine_background">#444153</color>
     <color name="guillotine_background_dark">#383547</color>
     <color name="selected_item_color">#30d1d5</color>
+    <color name="lavender">#FAFAFA</color>
+
 
     <color name="color_1">#E1BEE7</color>
     <color name="color_2">#D1C4E9</color>

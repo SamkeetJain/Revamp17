@@ -2,6 +2,7 @@ package com.samkeet.revamp17;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.TextInputLayout;
@@ -34,9 +35,9 @@ public class SignupActivity extends AppCompatActivity {
 
     public static final int OTP_ACTIVITY_CODE = 201;
 
-    public TextInputLayout tMobileno, tPassword, tEmail, tFullName;
-    public String mobileno, password, email, fullname;
-    public EditText mMobileno, mPassword, mEmail, mFullName;
+    public TextInputLayout tMobileno, tPassword, tEmail, tFullName, tCpassword;
+    public String mobileno, password, email, fullname, cpassword;
+    public EditText mMobileno, mPassword, mEmail, mFullName, mCpassword;
     public Button mSignUp;
 
     private SpotsDialog pd;
@@ -55,6 +56,8 @@ public class SignupActivity extends AppCompatActivity {
         tMobileno = (TextInputLayout) findViewById(R.id.text_mobileno);
         mPassword = (EditText) findViewById(R.id.input_password);
         tPassword = (TextInputLayout) findViewById(R.id.text_password);
+        mCpassword = (EditText) findViewById(R.id.input_cpassword);
+        tCpassword = (TextInputLayout) findViewById(R.id.text_cpassword);
         mEmail = (EditText) findViewById(R.id.input_email);
         tEmail = (TextInputLayout) findViewById(R.id.text_email);
         mFullName = (EditText) findViewById(R.id.input_fullname);
@@ -65,8 +68,11 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (valid()) {
-                    OTPVerify otpVerify = new OTPVerify();
-                    otpVerify.execute();
+                    if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
+
+                        OTPVerify otpVerify = new OTPVerify();
+                        otpVerify.execute();
+                    }
                 }
             }
         });
@@ -77,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
         email = mEmail.getText().toString().trim();
         password = mPassword.getText().toString().trim();
         fullname = mFullName.getText().toString().trim();
-
+        cpassword = mCpassword.getText().toString().trim();
 
         if (fullname.isEmpty() || fullname.length() > 64) {
             tFullName.setError("Enter valid name (64 char max)");
@@ -110,6 +116,13 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             tPassword.setErrorEnabled(false);
         }
+        if (cpassword.isEmpty() || !(cpassword.equals(password))) {
+            tCpassword.setError("The Password doesnot match");
+            requestFocus(mCpassword);
+            return false;
+        } else {
+            tCpassword.setErrorEnabled(false);
+        }
 
         return true;
     }
@@ -125,9 +138,13 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void forward() {
-        SignUp signup = new SignUp();
 
-        signup.execute();
+        if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
+
+            SignUp signup = new SignUp();
+
+            signup.execute();
+        }
     }
 
     private class OTPVerify extends AsyncTask<Void, Void, Integer> {
@@ -147,7 +164,6 @@ public class SignupActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                Log.d("POST", "DATA ready to sent");
 
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("Mobile", mobileno)
                         .appendQueryParameter("Request_Type", "OTP")
@@ -158,7 +174,6 @@ public class SignupActivity extends AppCompatActivity {
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
                 writer.close();
-                Log.d("POST", "DATA SENT");
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
@@ -169,7 +184,6 @@ public class SignupActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-                Log.d("return from server", jsonResults.toString());
 
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 
@@ -231,7 +245,6 @@ public class SignupActivity extends AppCompatActivity {
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
-                Log.d("POST", "DATA ready to sent");
 
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("Mobile", mobileno)
                         .appendQueryParameter("Request_Type", "signup")
@@ -242,7 +255,6 @@ public class SignupActivity extends AppCompatActivity {
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
                 writer.close();
-                Log.d("POST", "DATA SENT");
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
@@ -253,7 +265,6 @@ public class SignupActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-                Log.d("return from server", jsonResults.toString());
 
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 

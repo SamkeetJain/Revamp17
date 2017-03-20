@@ -47,7 +47,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_event_black_36dp" />
+                    android:src="@drawable/ic_language_black_24dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Events"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -70,7 +70,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_input_black_24dp" />
+                    android:src="@drawable/ic_event_black_36dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Schedule"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_input_black_24dp" />
+                    android:src="@drawable/ic_map_black_24dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Reach Us"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -116,7 +116,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_input_black_24dp" />
+                    android:src="@drawable/ic_http_black_24dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -124,12 +124,12 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Website"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/gen_group"
+                android:id="@+id/pay_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -139,7 +139,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_input_black_24dp" />
+                    android:src="@drawable/ic_attach_money_black_24dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Payment Info"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -168,7 +168,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_input_black_24dp" />
+                    android:src="@drawable/ic_android_black_24dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -176,32 +176,10 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Developers"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/about_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                android:paddingLeft="36dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_input_black_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="36dp"
-                    android:text="About Us"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/logout_group"
@@ -222,7 +200,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="36dp"
                     android:text="Logout"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
 

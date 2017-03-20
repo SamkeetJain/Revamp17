@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
@@ -82,6 +83,7 @@ public class EventsAdapter extends StackAdapter<Integer> {
         View mContainerContent;
         Button mRegBtn;
         TextView mEvent_name, mEvent_Prize1, mEvent_Prize2, mEvent_Reg_Fee, mEvent_Rules;
+        TextView mWhere, mOn, mAt, mContact;
 
 
         public ColorItemViewHolder(View view, JSONArray events, Activity activity, boolean show) {
@@ -97,6 +99,12 @@ public class EventsAdapter extends StackAdapter<Integer> {
             mEvent_Reg_Fee = (TextView) view.findViewById(R.id.event_reg_fee);
             mEvent_Rules = (TextView) view.findViewById(R.id.event_rule);
 
+            mWhere = (TextView) view.findViewById(R.id.where);
+            mAt = (TextView) view.findViewById(R.id.at);
+            mOn = (TextView) view.findViewById(R.id.on);
+            mContact = (TextView) view.findViewById(R.id.contact);
+
+
             checkeligibity(show);
         }
 
@@ -108,17 +116,30 @@ public class EventsAdapter extends StackAdapter<Integer> {
         public void onBind(Integer data, final int position) {
             mLayout.getBackground().setColorFilter(ContextCompat.getColor(getContext(), data), PorterDuff.Mode.SRC_IN);
             try {
-                String name, prize1, prize2, reg_fee, rule;
+                String name, prize1, prize2, reg_fee, rule, where, at, on, contact1, contact2, contact;
                 name = events.getJSONObject(position).getString("Event_Name");
                 prize1 = " " + "\u20B9" + " " + events.getJSONObject(position).getString("Event_Prize1");
                 prize2 = " " + "\u20B9" + " " + events.getJSONObject(position).getString("Event_Prize2");
                 reg_fee = "Reg Fee   " + "\u20B9" + " " + events.getJSONObject(position).getString("Event_Reg_Fee");
                 rule = events.getJSONObject(position).getString("Event_Rules");
+
+                where = events.getJSONObject(position).getString("Event_Location");
+                at = events.getJSONObject(position).getString("Event_Time");
+                on = events.getJSONObject(position).getString("Event_Date");
+                contact1 = events.getJSONObject(position).getString("Event_Contact_Name");
+                contact2 = events.getJSONObject(position).getString("Event_Contact_No");
+                contact = contact1 + " " + contact2;
+
                 mEvent_name.setText(name);
                 mEvent_Prize1.setText(prize1);
                 mEvent_Prize2.setText(prize2);
                 mEvent_Reg_Fee.setText(reg_fee);
                 mEvent_Rules.setText(rule);
+                mWhere.setText(where);
+                mOn.setText(on);
+                mAt.setText(at);
+                mContact.setText(contact);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -177,10 +198,10 @@ public class EventsAdapter extends StackAdapter<Integer> {
         }
 
         public void register(String Event_ID) {
+                Registration registration = new Registration();
+                String[] mParams = {Event_ID};
+                registration.execute(mParams);
 
-            Registration registration = new Registration();
-            String[] mParams = {Event_ID};
-            registration.execute(mParams);
         }
 
         public void showRegistrationStatus(JSONObject jsonObject) {
@@ -231,7 +252,6 @@ public class EventsAdapter extends StackAdapter<Integer> {
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
                     connection.setRequestMethod("POST");
-                    Log.d("POST", "DATA ready to sent");
 
                     Uri.Builder _data = new Uri.Builder().appendQueryParameter("token", Constants.SharedPreferenceData.getTOKEN())
                             .appendQueryParameter("requestType", "put")
@@ -241,7 +261,6 @@ public class EventsAdapter extends StackAdapter<Integer> {
                     writer.write(_data.build().getEncodedQuery());
                     writer.flush();
                     writer.close();
-                    Log.d("POST", "DATA SENT");
 
                     InputStreamReader in = new InputStreamReader(connection.getInputStream());
                     StringBuilder jsonResults = new StringBuilder();
@@ -252,7 +271,6 @@ public class EventsAdapter extends StackAdapter<Integer> {
                         jsonResults.append(buff, 0, read);
                     }
                     connection.disconnect();
-                    Log.d("return from server", jsonResults.toString());
 
                     authenticationError = jsonResults.toString().contains("Authentication Error");
 
