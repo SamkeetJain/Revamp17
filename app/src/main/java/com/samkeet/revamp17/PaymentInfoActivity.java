@@ -25,7 +25,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
 
                 builder.setTitle("Payment Coordinator List");
-                builder.setMessage("Organising team\nSmrithi Menon 8197365277\n\nCultural events\nHeba 9738327413\n\nTechnical events\nAkarsh 8722136055\n\nTechnical support\nSamkeet Jain 8147514179");
+                builder.setMessage("Organising team\nSmrithi Menon 8197365277\n\nCultural events\nHeba 9738327413\n\nTechnical events\nSachin 7829041181\n\nTechnical support\nSamkeet Jain 8147514179");
 
                 String positiveText = "Okay";
                 builder.setPositiveButton(positiveText, new DialogInterface.OnClickListener() {

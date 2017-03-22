@@ -26,7 +26,7 @@ public class DevelopersActivity extends AppCompatActivity {
     public void samemail(View v){
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto","jain.sankeet2210@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Smart Reva Android App");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Revamp 17 Android App");
         startActivity(Intent.createChooser(emailIntent, "Send email..."));
     }
     public void vaicall(View v){
@@ -40,7 +40,7 @@ public class DevelopersActivity extends AppCompatActivity {
     public void vaiemail(View v){
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto","vaibhavkrishna.bhosle@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Smart Reva Android App");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Revamp 17 Android App");
         startActivity(Intent.createChooser(emailIntent, "Send email..."));
     }
     public void leecall(View v){
@@ -54,7 +54,7 @@ public class DevelopersActivity extends AppCompatActivity {
     public void leeemail(View v){
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto","lilashsah2012@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Smart Reva Android App");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Revamp 17 Android App");
         startActivity(Intent.createChooser(emailIntent, "Send email..."));
     }
     public void radzcall(View v){
@@ -68,7 +68,7 @@ public class DevelopersActivity extends AppCompatActivity {
     public void radzemail(View v){
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto","gargradhika1996@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Smart Reva Android App");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From Revamp 17 Android App");
         startActivity(Intent.createChooser(emailIntent, "Send email..."));
     }
 }

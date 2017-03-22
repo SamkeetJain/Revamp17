@@ -48,7 +48,10 @@
         <activity android:name=".PaymentInfoActivity" />
         <activity android:name=".DevelopersActivity" />
         <activity android:name=".guest.GuestMyEventsActivity" />
-        <activity android:name=".Schedule2Activity"></activity>
+        <activity android:name=".Schedule2Activity" />
+        <activity android:name=".admin.AdTransferActivity" />
+        <activity android:name=".admin.AdTPassbookActivity" />
+        <activity android:name=".admin.AddCoActivity"></activity>
     </application>
 
 </manifest>

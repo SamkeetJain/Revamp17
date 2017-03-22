@@ -29,6 +29,7 @@ public class Constants {
         public static String VERSION = "version.php";
         public static String BACKSTAGE = "backstage.php";
         public static String SIGNUP = "signup.php";
+        public static String COSIGNUP = "cosignup.php";
     }
 
     public static class SharedPreferenceData {

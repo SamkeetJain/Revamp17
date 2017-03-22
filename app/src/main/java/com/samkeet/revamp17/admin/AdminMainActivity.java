@@ -1,6 +1,7 @@
 package com.samkeet.revamp17.admin;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +12,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.samkeet.revamp17.Constants;
+import com.samkeet.revamp17.DevelopersActivity;
 import com.samkeet.revamp17.LoginActivity;
+import com.samkeet.revamp17.PaymentInfoActivity;
 import com.samkeet.revamp17.R;
+import com.samkeet.revamp17.ScheduleActivity;
 import com.samkeet.revamp17.coordinator.CoPaymentActivity;
 import com.samkeet.revamp17.coordinator.CoRegistrationActivity;
 import com.samkeet.revamp17.events.EventsMainActivity;
@@ -62,6 +66,16 @@ public class AdminMainActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout mAddCo = (LinearLayout) findViewById(R.id.addco_group);
+        mAddCo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddCoActivity.class);
+                startActivity(intent);
+                mGuillotineAnimation.close();
+            }
+        });
+
         LinearLayout mRegistration = (LinearLayout) findViewById(R.id.registration_group);
         mRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +96,60 @@ public class AdminMainActivity extends AppCompatActivity {
                 startActivity(intent);
                 mGuillotineAnimation.close();
                 finish();
+            }
+        });
+
+        LinearLayout mSchedule = (LinearLayout) findViewById(R.id.sch_group);
+        mSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ScheduleActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        LinearLayout mReachUs = (LinearLayout) findViewById(R.id.reach_group);
+        mReachUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double latitude = 13.1158112;
+                double longitude = 77.6342008;
+                String label = "Reva University";
+
+                String uriBegin = "geo:" + latitude + "," + longitude;
+                String query = latitude + "," + longitude + "(" + label + ")";
+                String encodedQuery = Uri.encode(query);
+                String uriString = uriBegin + "?q=" + encodedQuery + "&z=17";
+                Uri uri = Uri.parse(uriString);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+            }
+        });
+        final LinearLayout mWebsite = (LinearLayout) findViewById(R.id.website_group);
+        mWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sWebsite = "http://www.revampthefest.com";
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
+                websiteIntent.setData(Uri.parse(sWebsite));
+                startActivity(websiteIntent);
+            }
+        });
+        LinearLayout mPaymentInfo = (LinearLayout) findViewById(R.id.pay_group);
+        mPaymentInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PaymentInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        LinearLayout mDevelopers = (LinearLayout) findViewById(R.id.dev_group);
+        mDevelopers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DevelopersActivity.class);
+                startActivity(intent);
             }
         });
 
