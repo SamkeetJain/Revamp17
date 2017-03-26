@@ -37,5 +37,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'me.relex:circleindicator:1.2.2@aar'
+    compile project(':LoopingViewPager')
+
 
 }

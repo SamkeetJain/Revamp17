@@ -110,6 +110,7 @@ public class CoRegStatusActivity extends AppCompatActivity {
                                 + "Registration Event Name: " + jsonObject.getString("Registration_Event_Name") + "\n"
                                 + "Registration User MobileNo: " + jsonObject.getString("Registration_User_MobileNo") + "\n"
                                 + "Registration User Name: " + jsonObject.getString("Registration_User_Name") + "\n"
+                                + "Registration User College Name: " + jsonObject.getString("college") + "\n"
                                 + "Registration Payment to MobileNo: " + jsonObject.getString("Registration_Payment_To_MobileNo") + "\n"
                                 + "Registration Payment to Name: " + jsonObject.getString("Registration_Payment_To_Name") + "\n"
                                 + "Registration Payment Status: " + jsonObject.getString("Registration_Payment_Status") + "\n"

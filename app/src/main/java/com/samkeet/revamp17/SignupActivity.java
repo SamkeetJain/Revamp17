@@ -35,9 +35,9 @@ public class SignupActivity extends AppCompatActivity {
 
     public static final int OTP_ACTIVITY_CODE = 201;
 
-    public TextInputLayout tMobileno, tPassword, tEmail, tFullName, tCpassword;
-    public String mobileno, password, email, fullname, cpassword;
-    public EditText mMobileno, mPassword, mEmail, mFullName, mCpassword;
+    public TextInputLayout tMobileno, tPassword, tEmail, tFullName, tCpassword, tColName;
+    public String mobileno, password, email, fullname, cpassword, colname;
+    public EditText mMobileno, mPassword, mEmail, mFullName, mCpassword, mColName;
     public Button mSignUp;
 
     private SpotsDialog pd;
@@ -62,6 +62,8 @@ public class SignupActivity extends AppCompatActivity {
         tEmail = (TextInputLayout) findViewById(R.id.text_email);
         mFullName = (EditText) findViewById(R.id.input_fullname);
         tFullName = (TextInputLayout) findViewById(R.id.text_fullname);
+        mColName = (EditText) findViewById(R.id.input_col);
+        tColName = (TextInputLayout) findViewById(R.id.text_col);
 
         mSignUp = (Button) findViewById(R.id.btn_signup);
         mSignUp.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +86,7 @@ public class SignupActivity extends AppCompatActivity {
         password = mPassword.getText().toString().trim();
         fullname = mFullName.getText().toString().trim();
         cpassword = mCpassword.getText().toString().trim();
+        colname = mColName.getText().toString().trim();
 
         if (fullname.isEmpty() || fullname.length() > 64) {
             tFullName.setError("Enter valid name (64 char max)");
@@ -107,6 +110,14 @@ public class SignupActivity extends AppCompatActivity {
             return false;
         } else {
             tEmail.setErrorEnabled(false);
+        }
+
+        if (colname.isEmpty() || colname.length() > 64) {
+            tColName.setError("Enter valid College Name (64 char max)");
+            requestFocus(mColName);
+            return false;
+        } else {
+            tColName.setErrorEnabled(false);
         }
 
         if (password.isEmpty() || password.length() > 64) {
@@ -169,7 +180,8 @@ public class SignupActivity extends AppCompatActivity {
                         .appendQueryParameter("Request_Type", "OTP")
                         .appendQueryParameter("Password", password)
                         .appendQueryParameter("Email", email)
-                        .appendQueryParameter("Name", fullname);
+                        .appendQueryParameter("Name", fullname)
+                        .appendQueryParameter("College",colname);
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
@@ -249,8 +261,11 @@ public class SignupActivity extends AppCompatActivity {
                 Uri.Builder _data = new Uri.Builder().appendQueryParameter("Mobile", mobileno)
                         .appendQueryParameter("Request_Type", "signup")
                         .appendQueryParameter("Password", password)
+                        .appendQueryParameter("College",colname)
                         .appendQueryParameter("Email", email)
                         .appendQueryParameter("Name", fullname);
+
+
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();
