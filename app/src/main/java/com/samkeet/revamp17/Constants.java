@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 public class Constants {
 
-    public final static String VERSION_CODE = "1.1";
+    public final static String VERSION_CODE = "2.0";
 
     public static class URLs {
         public static String BASE = "http://revamp.e-lemon-ators.club/v1/";
@@ -41,6 +41,7 @@ public class Constants {
         public static String MOBILE_NO = "mobile_no";
         public static String TOKEN = "token";
         public static String TYPE = "type";
+        public static String EC = "EVENT_CO";
 
 
         public static void initSharedPreferenceData(SharedPreferences sharedPreferences1) {
@@ -52,6 +53,15 @@ public class Constants {
             if (sharedPreferences != null)
                 return true;
             return false;
+        }
+
+        public static String getEC() {
+            return sharedPreferences.getString(EC, "NOT_AVALIBLE");
+        }
+
+        public static void setEC(String ec) {
+            editor.putString(EC, ec);
+            editor.apply();
         }
 
         public static String getIsLoggedIn() {

@@ -43,7 +43,7 @@ public class BLoginActivity extends AppCompatActivity {
     public boolean authenticationError = true;
     public String errorMessage = "Data Corrupted";
 
-    public String token, type;
+    public String token, type, ec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +163,7 @@ public class BLoginActivity extends AppCompatActivity {
                     if (status.equals("success")) {
                         token = jsonObj.getString("token");
                         type = jsonObj.getString("type");
+                        ec = jsonObj.getString("ec");
                         authenticationError = false;
                     } else {
                         authenticationError = true;
@@ -193,6 +194,7 @@ public class BLoginActivity extends AppCompatActivity {
                 Constants.SharedPreferenceData.setTOKEN(token);
                 Constants.SharedPreferenceData.setMobileNo(mobileno);
                 Constants.SharedPreferenceData.setTYPE(type);
+                Constants.SharedPreferenceData.setEC(ec);
 
                 forward();
             }

@@ -226,7 +226,6 @@ public class LoginActivity extends AppCompatActivity {
                     jsonResults.append(buff, 0, read);
                 }
                 connection.disconnect();
-
                 authenticationError = jsonResults.toString().contains("Authentication Error");
 
                 if (authenticationError) {
@@ -267,7 +266,7 @@ public class LoginActivity extends AppCompatActivity {
                 Constants.SharedPreferenceData.setTOKEN(token);
                 Constants.SharedPreferenceData.setMobileNo(mobileno);
                 Constants.SharedPreferenceData.setTYPE(type);
-
+                Constants.SharedPreferenceData.setEC("false");
                 forward();
             }
 

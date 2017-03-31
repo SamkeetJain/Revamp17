@@ -181,6 +181,10 @@ public class CoMainActivity extends AppCompatActivity {
             }
         });
 
+        if (Constants.SharedPreferenceData.getEC().equals("true")) {
+            mPayments.setVisibility(View.GONE);
+        }
+
         LinearLayout mRegistration = (LinearLayout) findViewById(R.id.registration_group);
         mRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,6 +281,7 @@ public class CoMainActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
