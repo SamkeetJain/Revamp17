@@ -49,15 +49,17 @@ public class AdminMainActivity extends AppCompatActivity {
 
     private static final long RIPPLE_DURATION = 250;
     private boolean isOpen = false;
-    private Handler handler1, handler2;
+    private Handler handler1, handler2,handler3;
     private int delay = 3000;
     private int page1 = 0;
     private int page2 = 0;
+    private int page3 = 0;
     private GuillotineAnimation mGuillotineAnimation;
-    private LoopViewPager viewPager1, viewPager2;
-    private CircleIndicator indicator1, indicator2;
+    private LoopViewPager viewPager1, viewPager2,viewPager3;
+    private CircleIndicator indicator1, indicator2,indicator3;
     private MyPagerAdapter1 myPageAdapter1;
     private MyPagerAdapter2 myPageAdapter2;
+    private MyPagerAdapter3 myPageAdapter3;
 
     private ImageView fb1, yt1, tw1, is1;
 
@@ -86,11 +88,24 @@ public class AdminMainActivity extends AppCompatActivity {
         }
     };
 
+    Runnable runnable3 = new Runnable() {
+        public void run() {
+            if (myPageAdapter3.getCount() == page3) {
+                page3 = 0;
+            } else {
+                page3++;
+            }
+            viewPager3.setCurrentItem(page3, true);
+            handler3.postDelayed(this, delay);
+        }
+    };
+
     @Override
     protected void onPause() {
         super.onPause();
         handler1.removeCallbacks(runnable1);
         handler2.removeCallbacks(runnable2);
+        handler3.removeCallbacks(runnable3);
     }
 
     @Override
@@ -145,6 +160,30 @@ public class AdminMainActivity extends AppCompatActivity {
 
             }
         });
+
+        handler3 = new Handler();
+        viewPager3 = (LoopViewPager) findViewById(R.id.viewpager3);
+        indicator3 = (CircleIndicator) findViewById(R.id.indicator3);
+        myPageAdapter3 = new MyPagerAdapter3();
+        viewPager3.setAdapter(myPageAdapter3);
+        indicator3.setViewPager(viewPager3);
+        viewPager3.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                page3 = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         if (Constants.Methods.networkState(getApplicationContext(), (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE))) {
 
             Version version = new Version();
@@ -417,6 +456,58 @@ public class AdminMainActivity extends AppCompatActivity {
         }
     }
 
+    private class MyPagerAdapter3 extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return 6;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup view, int position, Object object) {
+            view.removeView((View) object);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup view, int position) {
+
+            ImageView imageView = new ImageView(view.getContext());
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            switch (position) {
+                case 0:
+                    imageView.setImageResource(R.drawable.shadowz0);
+                    break;
+                case 1:
+                    imageView.setImageResource(R.drawable.shadowz1);
+                    break;
+                case 2:
+                    imageView.setImageResource(R.drawable.shadowz2);
+                    break;
+                case 3:
+                    imageView.setImageResource(R.drawable.shadowz3);
+                    break;
+                case 4:
+                    imageView.setImageResource(R.drawable.shadowz4);
+                    break;
+                case 5:
+                    imageView.setImageResource(R.drawable.shadowz5);
+                    break;
+                default:
+                    break;
+            }
+
+            view.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            return imageView;
+        }
+    }
+
+
     private class Version extends AsyncTask<Void, Void, Integer> {
         boolean auth = false;
 
@@ -508,6 +599,7 @@ public class AdminMainActivity extends AppCompatActivity {
         super.onResume();
         handler1.postDelayed(runnable1, delay);
         handler2.postDelayed(runnable2, delay);
+        handler3.postDelayed(runnable3, delay);
         Version version = new Version();
         version.execute();
     }

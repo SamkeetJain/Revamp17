@@ -273,55 +273,85 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
-
-                <LinearLayout
+                </android.support.v7.widget.CardView><FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:orientation="vertical">
 
+                    <com.imbryk.viewPager.LoopViewPager
+                        android:id="@+id/viewpager3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/indicator3"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="12dp"
+                        app:ci_animator="@animator/indicator_animator"
+                        app:ci_animator_reverse="@animator/indicator_animator_reverse"
+                        app:ci_drawable="@drawable/white_radius_square"
+                        app:ci_height="4dp"
+                        app:ci_margin="6dp"
+                        app:ci_width="10dp" />
+                </FrameLayout>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
-                        android:id="@+id/boxy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-                        <android.support.v7.widget.CardView
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="2dp"
-                            app:cardElevation="4dp"
-                            app:cardUseCompatPadding="true">
+                            android:gravity="center"
+                            android:text="SHADOWZ"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="100dp"
-                                android:paddingLeft="15dp"
-                                android:paddingRight="15dp"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/boys" />
-                        </android.support.v7.widget.CardView>
-
-
-
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="5dp"
+                            android:background="#e0e0e0" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="5dp">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="@string/data"
+                                android:text="4th April"
                                 android:textColor="#000000"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="REVA University"
+                                android:textColor="#000000"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
-                </LinearLayout>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 

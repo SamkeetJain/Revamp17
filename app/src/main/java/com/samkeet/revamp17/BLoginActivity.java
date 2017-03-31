@@ -145,7 +145,6 @@ public class BLoginActivity extends AppCompatActivity {
 
                 InputStreamReader in = new InputStreamReader(connection.getInputStream());
                 StringBuilder jsonResults = new StringBuilder();
-                // Load the results into a StringBuilder
                 int read;
                 char[] buff = new char[1024];
                 while ((read = in.read(buff)) != -1) {
